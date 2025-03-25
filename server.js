@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const server = app.listen(3000, () => console.log("Server running on port 3000"));
+const server = app.listen(10121, () => console.log("Server running on port 10121"));
 const wss = new WebSocket.Server({ server });
 
 // MQTT Connection
