@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "mqtt": "^5.10.4",
+    "mysql2": "^3.14.0",
+    "node-cron": "^3.0.3",
     "ws": "^8.18.1"
   }
 }
