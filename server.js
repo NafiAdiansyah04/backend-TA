@@ -6,6 +6,8 @@ const mqtt = require("mqtt");
 const cors = require("cors");
 const { updateMoisture, getLatestMoisture } = require("./server-data");
 require("./cron/saveAverage");
+const db = require("./db");
+
 
 const MQTT_BROKER = process.env.MQTT_BROKER || "wss://8f3fd6867485477db38c34b326a4073b.s1.eu.hivemq.cloud:8884/mqtt";
 const MQTT_USERNAME = process.env.MQTT_USERNAME || "brokertugasakhir";
@@ -89,6 +91,17 @@ app.post("/control/pesticide", (req, res) => {
         res.json({ message: `Pesticide pump set to ${status}` });
     });
 });
+
+app.get("/moisture/hourly", async (req, res) => {
+    try {
+        const [rows] = await db.query("SELECT timestamp AS hour_timestamp, average AS average_value FROM kelembapan_per_jam ORDER BY timestamp DESC LIMIT 24");
+        res.json(rows);
+    } catch (error) {
+        console.error("❌ Gagal mengambil data rata-rata kelembapan per jam:", error);
+        res.status(500).json({ error: "Gagal mengambil data kelembapan" });
+    }
+});
+
 
 wss.on("connection", (ws) => {
     console.log("🔗 WebSocket Client Connected");
