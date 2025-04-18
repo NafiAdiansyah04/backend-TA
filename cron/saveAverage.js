@@ -9,7 +9,7 @@ cron.schedule('0 * * * *', async () => {
 
     try {
         await db.query(
-            'INSERT INTO kelembapan_per_jam (timestamp, moisture1, moisture2, moisture3, average) VALUES (?, ?, ?, ?, ?)',
+            'INSERT INTO kelembapan_per_jam (timestamp, average) VALUES (?, ?, ?, ?, ?)',
             [timestamp, moisture1, moisture2, moisture3, average]
         );
         console.log("✅ Data rata-rata kelembapan disimpan ke database.");
